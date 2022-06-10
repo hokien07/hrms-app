@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')  }}">
+    <!-- Sweet Dialog2 -->
+    <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/dist/sweetalert2.min.css')  }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
 </head>
@@ -54,10 +56,15 @@
     <!-- ChartJS -->
     <script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
 
+    @if(request()->is('home'))
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('dist/js/demo.js')}}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{asset('dist/js/pages/dashboard2.js')}}"></script>
+    @endif
+    <!-- Sweet dialog2 -->
+    <script src="{{asset('plugins/sweetalert2/dist/sweetalert2.min.js')}}"></script>
+
     @yield('script')
 </body>
 </html>

@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
             Route::post("/store", [RoleController::class, 'store'])->name('store');
             Route::get("/edit/{model}", [RoleController::class, 'edit'])->name('edit');
             Route::post("/update/{model}", [RoleController::class, 'update'])->name('update');
+            Route::post("/delete", [RoleController::class, 'delete'])->name('delete');
         });
 
 });

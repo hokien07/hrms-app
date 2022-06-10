@@ -39,4 +39,12 @@ class RoleController extends Controller
     public function update(Request $request, Role $model) {
 
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function  delete (Request $request) {
+        return response()->json($request->all());
+    }
 }

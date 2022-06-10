@@ -49,7 +49,7 @@
                                                             <td>{{$role->name}}</td>
                                                             <td>
                                                                 <a href="{{route('role.edit', $role)}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                                <button class="btn btn-danger btn-delete" data-id="{{$role->id}}" data-model="role"><i class="fas fa-trash"></i></button>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -75,4 +75,38 @@
         </section>
         <!-- /.content -->
     </div>
+@endsection
+@section('script')
+    <script>
+        $(document).ready(function () {
+            $('.btn-delete').click(function () {
+                const id = $(this).attr('data-id');
+                const model = $(this).attr('data-model');
+                const token = $('meta[name=csrf-token]').attr('content');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.post(`/${model}/delete`, {
+                            'id' : id,
+                            "_token": token
+                        }, function (response) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        })
+                    }
+                })
+            });
+        });
+    </script>
 @endsection
