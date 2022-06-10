@@ -20,6 +20,10 @@ class CreateUsersSeeder extends Seeder
             [
                 'name'=>'SuperAdmin',
                 'email'=>'superadmin@example.com',
+                'firstname'=>'Admin',
+                'lastname'=>'Super',
+                'status'=>'active',
+                'gender'=>'male',
                 'role_id' => 1,
                 'password'=> Hash::make('password'),
             ]

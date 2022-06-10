@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('login');
-});
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('login');
+    });
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::prefix('role')
+        ->middleware('can:is-super-admin')
+        ->as('role.')
+        ->group(function () {
+            Route::get("/", [RoleController::class, 'index'])->name('home');
+            Route::get("/add", [RoleController::class, 'add'])->name('add');
+            Route::post("/store", [RoleController::class, 'store'])->name('store');
+            Route::get("/edit/{model}", [RoleController::class, 'edit'])->name('edit');
+            Route::post("/update/{model}", [RoleController::class, 'update'])->name('update');
+        });
+
+});
+
+
