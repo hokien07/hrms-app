@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Request\RoleRequest;
 use App\Services\RoleService;
 use Illuminate\Http\Request;
 
@@ -16,15 +17,19 @@ class RoleController extends Controller
     }
 
     public function index (Request $request) {
-        return view('roles.index');
+        $roles = $this->service->filter($request);
+        return view('roles.index', compact('roles'));
     }
 
     public function add(Request $request) {
         return view('roles.add');
     }
 
-    public function store(Request $request) {
-
+    public function store(RoleRequest $request) {
+        if($this->service->store($request)) {
+            return redirect()->route('role.home');
+        }
+        return redirect()->back()->withInput();
     }
 
     public function edit(Request $request, Role $model) {

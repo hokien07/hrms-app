@@ -25,7 +25,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <form action="">
+                        <form action="{{route('role.store')}}" method="POST">
+                            @csrf
                             <div class="card">
                                 <div class="card-header">
                                     <h5 class="card-title">Form contents</h5>
@@ -33,15 +34,23 @@
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <div class="row">
-                                        <!-- /.col -->
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Name <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control @error('name')is-invalid @enderror" id="name" name="name" required placeholder="Enter Role name">
+                                                @error('name')
+                                                <small class="form-text text-danger">{{$message}}</small>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                     <!-- /.row -->
                                 </div>
                                 <!-- ./card-body -->
                                 <div class="card-footer">
-                                    <button class="btn btn-success" type="submit">Submit</button>
-                                    <button class="btn btn-primary" type="reset">Refresh</button>
-                                    <a href="#" class="btn btn-danger">Back</a>
+                                    <button class="btn btn-success" type="submit"><i class="fas fa-save"></i> Submit</button>
+                                    <button class="btn btn-primary" type="reset"><i class="fas fa-refresh"></i> Refresh</button>
+                                    <a href="{{route('role.home')}}" class="btn btn-danger"><i class="fas fa-backward"></i> Back</a>
                                     <!-- /.row -->
                                 </div>
                                 <!-- /.card-footer -->

@@ -38,20 +38,20 @@
                 </a>
             </li>
             @can('is-super-admin')
-            <li class="nav-item menu-close">
+            <li class="nav-item {{request()->is('role/*') ? 'menu-open' : 'menu-close'}}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>Role <i class="right fas fa-angle-left"></i></p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{route('role.home')}}" class="nav-link">
+                        <a href="{{route('role.home')}}" class="nav-link {{request()->is('role') ? 'active' : ''}}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>List</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('role.add')}}" class="nav-link">
+                        <a href="{{route('role.add')}}" class="nav-link {{request()->is('role/add') ? 'active' : ''}}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Add</p>
                         </a>
