@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class CreateUsersSeeder extends Seeder
+class CreateRolesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,18 +16,20 @@ class CreateUsersSeeder extends Seeder
      */
     public function run()
     {
-        User::query()->truncate();
+        Role::query()->truncate();
         $user = [
             [
                 'name'=>'SuperAdmin',
-                'email'=>'superadmin@example.com',
-                'role_id' => 1,
-                'password'=> Hash::make('password'),
+                'created_at' => now()
+            ],
+            [
+                'name'=>'HRAdmin',
+                'created_at' => now()
             ]
         ];
 
         foreach ($user as $value) {
-            User::create($value);
+            Role::create($value);
         }
     }
 }
