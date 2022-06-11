@@ -83,6 +83,7 @@
                 const id = $(this).attr('data-id');
                 const model = $(this).attr('data-model');
                 const token = $('meta[name=csrf-token]').attr('content');
+                const that = $(this);
 
                 Swal.fire({
                     title: 'Are you sure?',
@@ -98,6 +99,7 @@
                             'id' : id,
                             "_token": token
                         }, function (response) {
+                            that.closest('tr').remove();
                             Swal.fire(
                                 'Deleted!',
                                 'Your file has been deleted.',
