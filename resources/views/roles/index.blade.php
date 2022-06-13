@@ -99,12 +99,20 @@
                             'id' : id,
                             "_token": token
                         }, function (response) {
-                            that.closest('tr').remove();
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            if(response.result) {
+                                that.closest('tr').remove();
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                )
+                            }else {
+                                Swal.fire(
+                                    'Error!',
+                                    `${response.message}`,
+                                    'error'
+                                )
+                            }
                         })
                     }
                 })

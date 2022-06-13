@@ -6,6 +6,8 @@ use App\Models\Role;
 use App\Request\RoleRequest;
 use App\Services\RoleService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
@@ -45,6 +47,27 @@ class RoleController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function  delete (Request $request) {
-        return response()->json($request->all());
+        $validator = Validator::make($request->all(), [
+            'id' => 'required'
+        ]);
+        if($validator->fails()) {
+            return response()->json([
+                'result' => false,
+                'status' => Response::HTTP_NOT_ACCEPTABLE,
+                'message' => 'Id is null or not exist'
+            ]);
+        }
+        if($this->service->delete($request->input('id'))) {
+            return response()->json([
+                'result' => true,
+                'status' => Response::HTTP_OK,
+                'message' => 'Deleted!'
+            ]);
+        }
+        return response()->json([
+            'result' => false,
+            'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+            'message' => 'Can not delete!'
+        ]);
     }
 }
